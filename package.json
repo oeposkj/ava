@@ -42,11 +42,7 @@
 		"node": ">=4"
 	},
 	"scripts": {
-		"test": "node test/assert.js",
-		"test-win": "tap --no-cov --reporter=classic --timeout=300 --jobs=4 test/*.js test/reporters/*.js",
-		"visual": "node test/visual/run-visual-tests.js",
-		"prepublish": "npm run make-ts",
-		"make-ts": "node types/make.js"
+		"test": "node test/assert.js"
 	},
 	"files": [
 		"lib",
@@ -94,57 +90,6 @@
 	],
 	"dependencies": {
 		"@ava/babel-preset-stage-4": "^1.1.0",
-		"@ava/babel-preset-transform-test-files": "^3.0.0",
-		"@ava/write-file-atomic": "^2.2.0",
-		"@concordance/react": "^1.0.0",
-		"strip-bom-buf": "^1.0.0",
-		"supports-color": "^4.0.0",
-		"time-require": "^0.1.2",
-		"trim-off-newlines": "^1.0.1",
-		"unique-temp-dir": "^1.0.0",
 		"update-notifier": "^2.1.0"
-	},
-	"devDependencies": {
-		"cli-table2": "^0.2.0",
-		"codecov": "^2.1.0",
-		"del": "^3.0.0",
-		"delay": "^2.0.0",
-		"execa": "^0.7.0",
-		"flow-bin": "^0.49.1",
-		"get-stream": "^3.0.0",
-		"git-branch": "^1.0.0",
-		"has-ansi": "^3.0.0",
-		"inquirer": "^3.0.5",
-		"is-array-sorted": "^1.0.0",
-		"lolex": "^1.4.0",
-		"nyc": "^11.0.3",
-		"proxyquire": "^1.7.4",
-		"react": "^15.6.1",
-		"react-test-renderer": "^15.6.1",
-		"signal-exit": "^3.0.0",
-		"sinon": "^2.0.0",
-		"source-map-fixtures": "^2.1.0",
-		"tap": "^10.0.0",
-		"temp-write": "^3.1.0",
-		"touch": "^2.0.2",
-		"typescript": "^2.2.2",
-		"xo": "^0.18.2",
-		"zen-observable": "^0.5.1"
-	},
-	"typings": "types/generated.d.ts",
-	"xo": {
-		"ignores": [
-			"media/**"
-		],
-		"rules": {
-			"no-use-extend-native/no-use-extend-native": "off"
-		}
-	},
-	"nyc": {
-		"reporter": [
-			"html",
-			"lcov",
-			"text"
-		]
 	}
 }
