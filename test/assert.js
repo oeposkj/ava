@@ -1,36 +1,3 @@
-function main(){
-'use strict';
-require('../lib/globals').options.color = false;
-
-const path = require('path');
-const stripAnsi = require('strip-ansi');
-const React = require('react');
-const renderer = require('react-test-renderer');
-const test = require('tap').test;
-const assert = require('../lib/assert');
-const snapshotManager = require('../lib/snapshot-manager');
-const Test = require('../lib/test');
-const HelloMessage = require('./fixture/HelloMessage');
-
-let lastFailure = null;
-let lastPassed = false;
-const assertions = assert.wrapAssertions({
-	pass() {
-		lastPassed = true;
-	},
-
-	pending(_, promise) {
-		promise.catch(err => {
-			lastFailure = err;
-		});
-	},
-
-	fail(_, error) {
-		lastFailure = error;
-	}
-});
-}
-
 function assertFailure(t, subset) {
 	if (!lastFailure) {
 		t.fail('Expected assertion to fail');
@@ -201,7 +168,7 @@ test('.is()', t => {
 	});
 
 	passes(t, () => {
-		const someRef = {foo: 'bar'};
+		var someRef = {foo: 'bar'};
 		assertions.is(someRef, someRef);
 	});
 
